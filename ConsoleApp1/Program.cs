@@ -7,8 +7,7 @@ namespace ConsoleApp1
 {
     class Program
     {
-
-        //создал словарь, подробнее в методе CreateCards
+        
         private static Dictionary<int, string> _cards = new Dictionary<int, string>();
 
         private static Dictionary<int, string> _suits = new Dictionary<int, string>()
@@ -23,14 +22,14 @@ namespace ConsoleApp1
         };
         
 
-    private static string[] _values = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        private static string[] _values = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
         
-        private static int count = 0; //считает подходящие сочетания
+        private static int _count = 0; //считает подходящие сочетания
         
         static void Main(string[] args)
         {
             Console.OutputEncoding = Encoding.UTF8; //даёт вывести символы крестушек/пикушек...
-            CreateCards(ref _cards);
+            CreateCards();
             /*foreach (var card in _cards.Values)
             {
                 Console.WriteLine(card);
@@ -45,16 +44,20 @@ namespace ConsoleApp1
             
         }
 
-
+        /// <summary>
+        /// Recursive brute force
+        /// </summary>
+        /// <param name="idx">First index</param>
+        /// <param name="last">Last index</param>
+        /// <param name="fiveCards">Combination array</param>
         static void Rec(int idx, int last, ref int[] fiveCards)
         {
             if (idx == 5)
             {
                 if (Test(fiveCards))
                 {
-                    count++;
-                    // Out(fiveCards, _cards); //вывод комбинаций в консоль
-                    //Console.ReadLine();
+                    _count++;
+                    // Out(fiveCards); // включить для вывода комбинаций в консоль
                 }
                 return;
             }
@@ -66,17 +69,14 @@ namespace ConsoleApp1
                 
             }
             
-        } //рекурсивный перебор - не трогаем!!!
+        } 
         
-
-        static void CreateCards(ref Dictionary<int, string> cards)
+        /// <summary>
+        /// Fills library of cards
+        /// </summary>
+        static void CreateCards()
         {
             /*
-                Ребятки, этот метод не трогаем, он нам генерирует библиотеку всех существующих
-                36 карт. 
-                Библиотека - структура данных, которая хранит в себе данные в виде
-                таких пар, как "ключ-значение". По ключу из словаря мы можем доставать значения, обращаемся как к массиву
-                К примеру, вызвав команду cards[1] мы получим 6♥, cards[2] нам выдаст 6♦ и так далее.
                 
                 ---СПИСОК КЛЮЧЕЙ И КАРТ---
                 
@@ -86,7 +86,7 @@ namespace ConsoleApp1
                 3 - 2♣
                 4 - 2♠
                 5 - 3♥
-                6 - 3♦    (cards[6] выведет 7♦)...
+                6 - 3♦    
                 7 - 3♣
                 8 - 3♠
                 9 - 4♥
@@ -100,7 +100,7 @@ namespace ConsoleApp1
                 17 - 6♥
                 18 - 6♦
                 19 - 6♣
-                20 - 6♠    (cards[20] выведет 10♠)...
+                20 - 6♠    
                 21 - 7♥
                 22 - 7♦
                 23 - 7♣
@@ -133,16 +133,8 @@ namespace ConsoleApp1
                 50 - A♦ 
                 51 - A♣ 
                 52 - A♠ 
-                
-                !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                определить масть по ключу:
-                метод Suit(int key)
-                
-                определить достоинство карты по ключу:
-                метод Value(int key)
-                
-                
             */
+            
             int count = 1;
             for (int i = 1; i <= 13; i++)
             {
@@ -171,23 +163,26 @@ namespace ConsoleApp1
                     s = "A";
                 }
                 
-                cards.Add(count++, s+"♥");
-                cards.Add(count++, s+"♦");
-                cards.Add(count++, s+"♣");
-                cards.Add(count++, s+"♠");
+                _cards.Add(count++, s+"♥");
+                _cards.Add(count++, s+"♦");
+                _cards.Add(count++, s+"♣");
+                _cards.Add(count++, s+"♠");
                 
             }
         }
+        /// <summary>
+        /// Prints cards by their code
+        /// </summary>
+        /// <param name="s">Card's code in a library</param>
 
-        static void Out(int[] s, Dictionary<int, string> cards) //выводит карты
+        static void Out(int[] s) //выводит карты
         {
             foreach (int key in s)
             {
-                Console.Write(cards[key] + " ");
+                Console.Write(_cards[key] + " ");
             }
             Console.WriteLine();
         }
-
         static string Suit(int key)
         {
             return _suits[key % 4];
@@ -198,17 +193,14 @@ namespace ConsoleApp1
             return _values[(key-1) / 4];
         }
         
-        //Нужно переписать под себя только метод Test()!
-        //-------------------------------------------------------------------------------
-        /*ПРИМЕР АЛГОРИТМА
-         12 вар -  Нужно, чтобы ТОЧНО были 2 дамы, 2 туза, 1 карта пиковой масти
-         то есть надо проверить массив ключей на то, что у нас есть 2 непиковых дамы, 2 непиковых туза 
-         и 1 пикушка
-        */
+        /// <summary>
+        /// Tests 5 cards and defines the combination
+        /// </summary>
+        /// <param name="fiveCards">Sample of 5 cards</param>
+        /// <returns></returns>
         static bool Test(int[] fiveCards)
         {
             int[] suits = new int[4];
-            
             int[] values = new int[13];
 
 
@@ -220,20 +212,17 @@ namespace ConsoleApp1
             
             if (Combinations.IsRoyalFlush(values, suits))
             {
-                //Console.WriteLine("Флеш-Рояль");
                 _combinations["Роял-Флеш"]++;
                 return true;
             }
             if (Combinations.IsStraightFlush(values, suits))
             {
-                //Console.WriteLine("Стрит-Флеш");
                 _combinations["Стрит-Флеш"]++;
                 return true;
             }
             
             if (Combinations.IsFourOfAKind(values))
             {
-                //Console.WriteLine("Каре");
                 _combinations["Каре"]++;
                 return true;
             }
@@ -241,7 +230,6 @@ namespace ConsoleApp1
            
             if (Combinations.IsFullHouse(values))
             {
-                //Console.WriteLine("Фулхаус");
                 _combinations["Фулхаус"]++;
                 return true;
             }
@@ -253,28 +241,24 @@ namespace ConsoleApp1
             }
             if (Combinations.IsStraight(values))
             {
-                //Console.WriteLine("Стрит");
                 _combinations["Стрит"]++;
                 return true;
             }
             
             if (Combinations.IsSet(values))
             {
-                //Console.WriteLine("Сет");
                 _combinations["Сет"]++;
                 return true;
             }
             
             if (Combinations.IsTwoPairs(values))
             {
-                //Console.WriteLine("Две пары");
                 _combinations["Две пары"]++;
                 return true;
             }
             
             if (Combinations.IsPair(values))
             {
-                //Console.WriteLine("Пара");
                 _combinations["Пара"]++;
                 return true;
             }
@@ -282,8 +266,8 @@ namespace ConsoleApp1
             _combinations["Старшая карта"]++;
             return true;
             
-            //ВЫВОД НА ЭКРАН ЧИСЛА КАРТ
-/*
+            
+            /* ВЫВОД НА ЭКРАН МАССИВОВ ЗНАЧЕНИЙ И МАСТЕЙ
             foreach (int i in suits)
             {
                 Console.Write(i + " ");
@@ -298,39 +282,42 @@ namespace ConsoleApp1
 
         }
 
+        /// <summary>
+        /// Prints probability info
+        /// </summary>
         public static void PrintInfo()
         {
-            Console.WriteLine("Число комбинаций 'СТАРШАЯ КАРТА' равно " + _combinations["Старшая карта"] + ", вероятность выпадения: " + (double) _combinations["Старшая карта"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Старшая карта"]);
+            Console.WriteLine("Число комбинаций 'СТАРШАЯ КАРТА' равно " + _combinations["Старшая карта"] + ", вероятность выпадения: " + (double) _combinations["Старшая карта"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Старшая карта"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ПАРА' равно " + _combinations["Пара"] + ", вероятность выпадения: " + (double) _combinations["Пара"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Пара"]);
+            Console.WriteLine("Число комбинаций 'ПАРА' равно " + _combinations["Пара"] + ", вероятность выпадения: " + (double) _combinations["Пара"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Пара"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ДВЕ ПАРЫ' равно " + _combinations["Две пары"] + ", вероятность выпадения: " + (double) _combinations["Две пары"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Две пары"]);
+            Console.WriteLine("Число комбинаций 'ДВЕ ПАРЫ' равно " + _combinations["Две пары"] + ", вероятность выпадения: " + (double) _combinations["Две пары"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Две пары"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СЕТ' равно " + _combinations["Сет"] + ", вероятность выпадения: " + (double) _combinations["Сет"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Сет"]);
+            Console.WriteLine("Число комбинаций 'СЕТ' равно " + _combinations["Сет"] + ", вероятность выпадения: " + (double) _combinations["Сет"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Сет"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ' равно " + _combinations["Стрит"] + ", вероятность выпадения: " + (double) _combinations["Стрит"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Стрит"]);
+            Console.WriteLine("Число комбинаций 'СТРИТ' равно " + _combinations["Стрит"] + ", вероятность выпадения: " + (double) _combinations["Стрит"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Стрит"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФЛЕШ' равно " + _combinations["Флеш"] + ", вероятность выпадения: " + (double) _combinations["Флеш"]/count*100 + 
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Флеш"]);
+            Console.WriteLine("Число комбинаций 'ФЛЕШ' равно " + _combinations["Флеш"] + ", вероятность выпадения: " + (double) _combinations["Флеш"]/_count*100 + 
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Флеш"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФУЛ-ХАУС' равно " + _combinations["Фулхаус"] + ", вероятность выпадения: " + (double) _combinations["Фулхаус"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Фулхаус"]);
+            Console.WriteLine("Число комбинаций 'ФУЛ-ХАУС' равно " + _combinations["Фулхаус"] + ", вероятность выпадения: " + (double) _combinations["Фулхаус"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Фулхаус"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'КАРЕ' равно " + _combinations["Каре"] + ", вероятность выпадения: " + (double) _combinations["Каре"]/count*100 +
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Каре"]);
+            Console.WriteLine("Число комбинаций 'КАРЕ' равно " + _combinations["Каре"] + ", вероятность выпадения: " + (double) _combinations["Каре"]/_count*100 +
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Каре"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Стрит-Флеш"]/count*100 + 
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Стрит-Флеш"]);
+            Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Стрит-Флеш"]/_count*100 + 
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Стрит-Флеш"]);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'РОЯЛ-ФЛЕШ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Роял-Флеш"]/count*100 + 
-                              ", шанс встретить в 1 из " + (double) count/_combinations["Роял-Флеш"]);
+            Console.WriteLine("Число комбинаций 'РОЯЛ-ФЛЕШ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Роял-Флеш"]/_count*100 + 
+                              ", шанс встретить в 1 из " + (double) _count/_combinations["Роял-Флеш"]);
             Console.WriteLine();
-            Console.WriteLine("Число всех сочетаний равно " + count);
+            Console.WriteLine("Число всех сочетаний равно " + _count);
             Console.ReadLine();
         }
 
