@@ -287,35 +287,25 @@ namespace ConsoleApp1
         /// </summary>
         public static void PrintInfo()
         {
-            Console.WriteLine("Число комбинаций 'СТАРШАЯ КАРТА' равно " + _combinations["Старшая карта"] + ", вероятность выпадения: " + (double) _combinations["Старшая карта"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Старшая карта"]);
+            Console.WriteLine("Число комбинаций 'СТАРШАЯ КАРТА' равно " + _combinations["Старшая карта"] + ", вероятность выпадения в %: " + (double) _combinations["Старшая карта"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ПАРА' равно " + _combinations["Пара"] + ", вероятность выпадения: " + (double) _combinations["Пара"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Пара"]);
+            Console.WriteLine("Число комбинаций 'ПАРА' равно " + _combinations["Пара"] + ", вероятность выпадения в %: " + (double) _combinations["Пара"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ДВЕ ПАРЫ' равно " + _combinations["Две пары"] + ", вероятность выпадения: " + (double) _combinations["Две пары"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Две пары"]);
+            Console.WriteLine("Число комбинаций 'ДВЕ ПАРЫ' равно " + _combinations["Две пары"] + ", вероятность выпадения в %: " + (double) _combinations["Две пары"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СЕТ' равно " + _combinations["Сет"] + ", вероятность выпадения: " + (double) _combinations["Сет"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Сет"]);
+            Console.WriteLine("Число комбинаций 'СЕТ' равно " + _combinations["Сет"] + ", вероятность выпадения в %: " + (double) _combinations["Сет"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ' равно " + _combinations["Стрит"] + ", вероятность выпадения: " + (double) _combinations["Стрит"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Стрит"]);
+            Console.WriteLine("Число комбинаций 'СТРИТ' равно " + _combinations["Стрит"] + ", вероятность выпадения в %: " + (double) _combinations["Стрит"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФЛЕШ' равно " + _combinations["Флеш"] + ", вероятность выпадения: " + (double) _combinations["Флеш"]/_count*100 + 
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Флеш"]);
+            Console.WriteLine("Число комбинаций 'ФЛЕШ' равно " + _combinations["Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Флеш"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФУЛ-ХАУС' равно " + _combinations["Фулхаус"] + ", вероятность выпадения: " + (double) _combinations["Фулхаус"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Фулхаус"]);
+            Console.WriteLine("Число комбинаций 'ФУЛ-ХАУС' равно " + _combinations["Фулхаус"] + ", вероятность выпадения в %: " + (double) _combinations["Фулхаус"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'КАРЕ' равно " + _combinations["Каре"] + ", вероятность выпадения: " + (double) _combinations["Каре"]/_count*100 +
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Каре"]);
+            Console.WriteLine("Число комбинаций 'КАРЕ' равно " + _combinations["Каре"] + ", вероятность выпадения в %: " + (double) _combinations["Каре"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Стрит-Флеш"]/_count*100 + 
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Стрит-Флеш"]);
+            Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Стрит-Флеш"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'РОЯЛ-ФЛЕШ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения: " + (double) _combinations["Роял-Флеш"]/_count*100 + 
-                              ", шанс встретить в 1 из " + (double) _count/_combinations["Роял-Флеш"]);
+            Console.WriteLine("Число комбинаций 'РОЯЛ-ФЛЕШ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Роял-Флеш"]/_count*100 );
             Console.WriteLine();
             Console.WriteLine("Число всех сочетаний равно " + _count);
             Console.ReadLine();
