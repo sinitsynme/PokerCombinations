@@ -305,7 +305,7 @@ namespace ConsoleApp1
             Console.WriteLine();
             Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Стрит-Флеш"]/_count*100);
             Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'РОЯЛ-ФЛЕШ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Роял-Флеш"]/_count*100 );
+            Console.WriteLine("Число комбинаций 'ФЛЕШ-РОЯЛЬ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Роял-Флеш"]/_count*100 );
             Console.WriteLine();
             Console.WriteLine("Число всех сочетаний равно " + _count);
             Console.ReadLine();
