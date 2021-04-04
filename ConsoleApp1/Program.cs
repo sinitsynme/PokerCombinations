@@ -282,31 +282,45 @@ namespace ConsoleApp1
 
         }
 
+        static void Design()
+        {
+            for (int i = 0; i < 81; i++)
+            {
+                Console.Write("-");
+            }
+            Console.WriteLine();
+        }
+
         /// <summary>
         /// Prints probability info
         /// </summary>
-        public static void PrintInfo()
+        static void PrintInfo()
         {
-            Console.WriteLine("Число комбинаций 'СТАРШАЯ КАРТА' равно " + _combinations["Старшая карта"] + ", вероятность выпадения в %: " + (double) _combinations["Старшая карта"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ПАРА' равно " + _combinations["Пара"] + ", вероятность выпадения в %: " + (double) _combinations["Пара"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ДВЕ ПАРЫ' равно " + _combinations["Две пары"] + ", вероятность выпадения в %: " + (double) _combinations["Две пары"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СЕТ' равно " + _combinations["Сет"] + ", вероятность выпадения в %: " + (double) _combinations["Сет"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ' равно " + _combinations["Стрит"] + ", вероятность выпадения в %: " + (double) _combinations["Стрит"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФЛЕШ' равно " + _combinations["Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Флеш"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФУЛ-ХАУС' равно " + _combinations["Фулхаус"] + ", вероятность выпадения в %: " + (double) _combinations["Фулхаус"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'КАРЕ' равно " + _combinations["Каре"] + ", вероятность выпадения в %: " + (double) _combinations["Каре"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'СТРИТ-ФЛЕШ' равно " + _combinations["Стрит-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Стрит-Флеш"]/_count*100);
-            Console.WriteLine();
-            Console.WriteLine("Число комбинаций 'ФЛЕШ-РОЯЛЬ' равно " + _combinations["Роял-Флеш"] + ", вероятность выпадения в %: " + (double) _combinations["Роял-Флеш"]/_count*100 );
-            Console.WriteLine();
+            Design();
+            Console.WriteLine("--------ПРОГРАММА ДЛЯ ПОДСЧЕТА ЧИСЛА КОМБИНАЦИЙ В ПОКЕРЕ И ИХ ВЕРОЯТНОСТИ--------");
+            Design();
+            Console.WriteLine($"{"Комбинация", 25} | {"Число комбинаций", 25} | {"Вероятность выпадения, %", 25}");
+            Design();
+            Console.WriteLine($"{"Старшая карта", 25} | {_combinations["Старшая карта"], 25} | {(double) _combinations["Старшая карта"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Пара", 25} | {_combinations["Пара"], 25} | {(double) _combinations["Пара"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Две пары", 25} | {_combinations["Две пары"], 25} | {(double) _combinations["Две пары"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Сет", 25} | {_combinations["Сет"], 25} | {(double) _combinations["Сет"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Стрит", 25} | {_combinations["Стрит"], 25} | {(double) _combinations["Стрит"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Флеш", 25} | {_combinations["Флеш"], 25} | {(double) _combinations["Флеш"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Фул-Хаус", 25} | {_combinations["Фулхаус"], 25} | {(double) _combinations["Фулхаус"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Каре", 25} | {_combinations["Каре"], 25} | {(double) _combinations["Каре"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Стрит-Флеш", 25} | {_combinations["Стрит-Флеш"], 25} | {(double) _combinations["Стрит-Флеш"]/_count*100, 25}");
+            Design();
+            Console.WriteLine($"{"Флеш-Рояль", 25} | {_combinations["Роял-Флеш"], 25} | {(double) _combinations["Роял-Флеш"]/_count*100, 25}");
+            Design();
             Console.WriteLine("Число всех сочетаний равно " + _count);
             Console.ReadLine();
         }
