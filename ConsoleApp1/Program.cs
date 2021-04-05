@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Threading;
+using ConsoleApp1.View;
 
 namespace ConsoleApp1
 {
@@ -28,19 +30,18 @@ namespace ConsoleApp1
         
         static void Main(string[] args)
         {
+            Stopwatch time = new Stopwatch();
+            time.Start();
+            
             Console.OutputEncoding = Encoding.UTF8; //даёт вывести символы крестушек/пикушек...
             CreateCards();
-            /*foreach (var card in _cards.Values)
-            {
-                Console.WriteLine(card);
-            }
-
-            Console.ReadLine();*/
 
             int[] fiveCards = new int[5]; //для ключей карт, вошедших в сочетание
-
+            
             Rec(0,0,ref fiveCards);
-            PrintInfo();
+
+            time.Stop();
+            ViewCount.PrintInfo(time, _combinations, _count);
             
         }
 
@@ -57,7 +58,7 @@ namespace ConsoleApp1
                 if (Test(fiveCards))
                 {
                     _count++;
-                    // Out(fiveCards); // включить для вывода комбинаций в консоль
+                    //ViewCount.Out(fiveCards, _cards); // включить для вывода комбинаций в консоль
                 }
                 return;
             }
@@ -69,8 +70,8 @@ namespace ConsoleApp1
                 
             }
             
-        } 
-        
+        }
+
         /// <summary>
         /// Fills library of cards
         /// </summary>
@@ -81,7 +82,7 @@ namespace ConsoleApp1
                 ---СПИСОК КЛЮЧЕЙ И КАРТ---
                 
                 key - value
-                1 - 2♥
+                1 - 2♥ 
                 2 - 2♦
                 3 - 2♣
                 4 - 2♠
@@ -134,7 +135,7 @@ namespace ConsoleApp1
                 51 - A♣ 
                 52 - A♠ 
             */
-            
+
             int count = 1;
             for (int i = 1; i <= 13; i++)
             {
@@ -162,27 +163,15 @@ namespace ConsoleApp1
                 {
                     s = "A";
                 }
-                
-                _cards.Add(count++, s+"♥");
-                _cards.Add(count++, s+"♦");
-                _cards.Add(count++, s+"♣");
-                _cards.Add(count++, s+"♠");
-                
-            }
-        }
-        /// <summary>
-        /// Prints cards by their code
-        /// </summary>
-        /// <param name="s">Card's code in a library</param>
 
-        static void Out(int[] s) //выводит карты
-        {
-            foreach (int key in s)
-            {
-                Console.Write(_cards[key] + " ");
+                _cards.Add(count++, s + "♥");
+                _cards.Add(count++, s + "♦");
+                _cards.Add(count++, s + "♣");
+                _cards.Add(count++, s + "♠");
+
             }
-            Console.WriteLine();
         }
+
         static string Suit(int key)
         {
             return _suits[key % 4];
@@ -280,49 +269,6 @@ namespace ConsoleApp1
             }
             Console.WriteLine();*/
 
-        }
-
-        static void Design()
-        {
-            for (int i = 0; i < 81; i++)
-            {
-                Console.Write("-");
-            }
-            Console.WriteLine();
-        }
-
-        /// <summary>
-        /// Prints probability info
-        /// </summary>
-        static void PrintInfo()
-        {
-            Design();
-            Console.WriteLine("--------ПРОГРАММА ДЛЯ ПОДСЧЕТА ЧИСЛА КОМБИНАЦИЙ В ПОКЕРЕ И ИХ ВЕРОЯТНОСТИ--------");
-            Design();
-            Console.WriteLine($"{"Комбинация", 25} | {"Число комбинаций", 25} | {"Вероятность выпадения, %", 25}");
-            Design();
-            Console.WriteLine($"{"Старшая карта", 25} | {_combinations["Старшая карта"], 25} | {(double) _combinations["Старшая карта"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Пара", 25} | {_combinations["Пара"], 25} | {(double) _combinations["Пара"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Две пары", 25} | {_combinations["Две пары"], 25} | {(double) _combinations["Две пары"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Сет", 25} | {_combinations["Сет"], 25} | {(double) _combinations["Сет"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Стрит", 25} | {_combinations["Стрит"], 25} | {(double) _combinations["Стрит"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Флеш", 25} | {_combinations["Флеш"], 25} | {(double) _combinations["Флеш"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Фул-Хаус", 25} | {_combinations["Фулхаус"], 25} | {(double) _combinations["Фулхаус"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Каре", 25} | {_combinations["Каре"], 25} | {(double) _combinations["Каре"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Стрит-Флеш", 25} | {_combinations["Стрит-Флеш"], 25} | {(double) _combinations["Стрит-Флеш"]/_count*100, 25}");
-            Design();
-            Console.WriteLine($"{"Флеш-Рояль", 25} | {_combinations["Роял-Флеш"], 25} | {(double) _combinations["Роял-Флеш"]/_count*100, 25}");
-            Design();
-            Console.WriteLine("Число всех сочетаний равно " + _count);
-            Console.ReadLine();
         }
 
     }
